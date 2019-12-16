@@ -58,7 +58,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       ans8x = (uint64_t)(ans4x<<1)%(uint64_t)m;
       ans10x = (uint64_t)(ans8x+ans2x)%(uint64_t)m;
       result = (uint64_t)(ans10x + C[i]) %(uint64_t)m;
-      assert(result < m);
+      //assert(result < m);
     }
     return (int64_t)result;
 }
