@@ -1,20 +1,18 @@
 #include "multimod.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <assert.h>
+// #include <stdlib.h>
+// #include <stdio.h>
+// #include <string.h>
+// #include <sys/time.h>
+// #include <unistd.h>
+// #include <assert.h>
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     uint64_t A[70]={};
     uint64_t B[70]={};
-    uint64_t M[70]={};
     uint64_t C[140]={};
     int la = 0;
     int lb = 0;
     int lc = 0;
-    int lm = 0;
     while (a > 0)
     {
       A[la] = a%10;
@@ -65,37 +63,37 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     return (int64_t)result;
 }
 
-int main(){
-  char tmp[256]={};
-  int64_t a=0;
-  int64_t b=0;
-  int64_t m=0;
-  int64_t c=0;
-  int64_t result = 0;
-  char *delim= " ";
-  char *num;
-  int cnt= 0;
-  FILE *fp = fopen("test.txt","r");
-  struct timeval t1, t2;
-  double _time;
-  if(NULL==fp) printf("Can not find file\n");
-  else 
-  { printf("testing\n");
-    while (fgets(tmp, 256, fp))
-    {
-      num = strtok(tmp,delim);  sscanf(num, "%ld", &a); 
-      num = strtok(NULL,delim); sscanf(num, "%ld", &b);
-      num = strtok(NULL,delim); sscanf(num, "%ld", &m); 
-      num = strtok(NULL,delim); sscanf(num, "%ld", &c); 
-      memset(tmp,0,sizeof(tmp));
-      gettimeofday(&t1, NULL);
-      result = multimod_p1(a,b,m);
-      gettimeofday(&t2,NULL);
-      cnt++;
-      if(c != result) cnt--;
-      _time += t2.tv_sec - t1.tv_sec+(t2.tv_usec - t1.tv_usec)/1000000.0; 
-    }
-    printf("Success! Time: %lf, correct: %d\n",_time, cnt);
-  }
-  fclose(fp);
-}
+// int main(){
+//   char tmp[256]={};
+//   int64_t a=0;
+//   int64_t b=0;
+//   int64_t m=0;
+//   int64_t c=0;
+//   int64_t result = 0;
+//   char *delim= " ";
+//   char *num;
+//   int cnt= 0;
+//   FILE *fp = fopen("test.txt","r");
+//   struct timeval t1, t2;
+//   double _time = 0;
+//   if(NULL==fp) printf("Can not find file\n");
+//   else 
+//   { printf("testing\n");
+//     while (fgets(tmp, 256, fp))
+//     {
+//       num = strtok(tmp,delim);  sscanf(num, "%ld", &a); 
+//       num = strtok(NULL,delim); sscanf(num, "%ld", &b);
+//       num = strtok(NULL,delim); sscanf(num, "%ld", &m); 
+//       num = strtok(NULL,delim); sscanf(num, "%ld", &c); 
+//       memset(tmp,0,sizeof(tmp));
+//       gettimeofday(&t1, NULL);
+//       result = multimod_p1(a,b,m);
+//       gettimeofday(&t2,NULL);
+//       cnt++;
+//       if(c != result) cnt--;
+//       _time += t2.tv_sec - t1.tv_sec+(t2.tv_usec - t1.tv_usec)/1000000.0; 
+//     }
+//     printf("Success! Time: %lf, correct: %d\n",_time, cnt);
+//   }
+//   fclose(fp);
+// }
