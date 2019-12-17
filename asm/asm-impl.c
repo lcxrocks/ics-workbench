@@ -102,7 +102,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "movq 112(%[env]), %%r14;"
     "movq 120(%[env]), %%r15;"
     "testq %%rax, %%rax;"
-    "movq %[val], %%rax;" //if rax!=0, ret val = val;
+    "movl %[val], %%rax;" //if rax!=0, ret val = val;
     "cmove $1,%%rax;" //if rax=0, ret val = 1;
 
     "movq 128(%[env]), %%rsi;"
