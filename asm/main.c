@@ -99,5 +99,4 @@ static void setjmp_test0() {
     setjmp_test_simple();
   }
   setjmp_log("B", r);
-  printf("hahah?");
 }
