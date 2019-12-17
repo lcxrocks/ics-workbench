@@ -84,7 +84,7 @@ int asm_setjmp(asm_jmp_buf env) {
 }
 
 void asm_longjmp(asm_jmp_buf env, int val) {
-  uint64_t val = (uint64_t) val;
+  uint64_t _val = (uint64_t) val;
   asm volatile(
     "movq (%[env]), %%rax;"
     "movq 8(%[env]), %%rbx;"
@@ -113,7 +113,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "movq 48(%[env]), %%rsi;"
     "movq 56(%[env]), %%rdi;"
     :
-    :[env]"r"(env), [val]"r"(val)  
+    :[env]"r"(env), [val]"r"(_val)  
     );
     return ;
 }
