@@ -57,29 +57,18 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 
 // C 标准库中的 setjmp/longjmp，用于控制流长跳转
 int asm_setjmp(asm_jmp_buf env) {
-
   asm volatile(
-    "movq %%rax, (%[env]);"
-    "movq %%rbx, 8(%[env]);"
-    "movq %%rcx, 16(%[env]);"
-    "movq %%rdx, 24(%[env]);"
-    
-    "movq %%rsi, 32(%[env]);"
-    "movq %%rdi, 40(%[env]);"
-    "movq %%rsp, 48(%[env]);"
-    "movq %%rbp, 56(%[env]);"
-    "movq %%r8, 64(%[env]);"
-    "movq %%r9, 72(%[env]);"
-    "movq %%r10, 80(%[env]);"
-    "movq %%r11, 88(%[env]);"
-    "movq %%r12, 96(%[env]);"
-    "movq %%r13, 104(%[env]);"
-    "movq %%r14, 112(%[env]);"
-    "movq %%r15, 120(%[env]);"
+    "movq %%rbx, 0(%[env]);"
+    "movq %%rbp, 8(%[env]);"
+    "movq %%r12, 16(%[env]);"
+    "movq %%r13, 24(%[env]);"
+    "movq %%r14, 32(%[env]);"
+    "movq %%r15, 40(%[env]);"
+    "leaq 8(%%rsp), %%rax;"
     "movq (%%rsp), %%rax;"
-    "movq %%rax, 128(%[env]);" //ret addr.
+    "movq (%%rax), 56(%[env]);"
     :
-    :[env]"D"(env)
+    :[env]"r"(env)
   );
   return 0;
 }
