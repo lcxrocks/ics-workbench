@@ -14,7 +14,8 @@ int main() {
 
   // TODO: add memcpy tests here!
   assert(asm_memcpy(NULL, NULL, 0) == NULL);
-
+  char hello[20]= "Hello World!\n";
+  assert(strcmp(asm_memcpy(tmp,hello,sizeof(hello)), hello));
   // setjmp test starts here
   setjmp_test0();
   setjmp_test1();
