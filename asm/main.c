@@ -11,12 +11,14 @@ int main() {
   // TODO: add more tests here!
   assert(asm_add(1, 2) == 3);
   assert(asm_popcnt(0xffffffffffffffffull) == 64);
-
+  assert(asm_add(2,3)==5);
+  assert(asm_popcnt(10)==2);
   // TODO: add memcpy tests here!
   assert(asm_memcpy(NULL, NULL, 0) == NULL);
   char tmp[20] = "";
   char hello[20]= "Hello World!\n";
   assert(strcmp(asm_memcpy(tmp,hello,sizeof(hello)), hello)==0);
+
   // setjmp test starts here
   setjmp_test0();
   setjmp_test1();
