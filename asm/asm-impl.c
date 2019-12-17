@@ -20,13 +20,13 @@ int64_t asm_add(int64_t a, int64_t b){
 // 返回无符号 64 位整数 x 二进制表示中 1 的数量
 int asm_popcnt(uint64_t n) {
   unsigned int c = 0;
-  for (c = 0; x; c++)
+  for (c = 0; n; c++)
   {
     asm volatile(
-      "\t leaq -1(%[x]), %%rdx;"
-      "\t andq %%rdx, %[x];"
-      : [x]"+r"(x)
-      :"[x]"(x)
+      "\t leaq -1(%[n]), %%rdx;"
+      "\t andq %%rdx, %[n];"
+      : [n]"+r"(n)
+      :"[n]"(n)
       :"rdx"
     );
   }
@@ -113,5 +113,5 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     :
     :[env]"r"(env), [val]"r"(val)  
     );
-    return 
+    return ;
 }
