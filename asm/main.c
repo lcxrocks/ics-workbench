@@ -23,7 +23,7 @@ int main() {
   setjmp_test0();
   setjmp_test1();
   setjmp_test2();
-  pintf("OHHHHHHHHHHHHHHHH!\n");
+  printf("OHHHHHHHHHHHHHHHH!\n");
 }
 
 struct log_entry {
