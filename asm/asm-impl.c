@@ -67,7 +67,7 @@ int asm_setjmp(asm_jmp_buf env) {
     "movq %%r14, 32(%[env]);"
     "movq %%r15, 40(%[env]);"
     "leaq 8(%%rsp), %%rax;"
-    "movq  %rax, 48(%[env]);"
+    "movq  %%rax, 48(%[env]);"
     "movq (%%rsp), %%rax;"
     "movq (%%rax), 56(%[env]);"
     :[env]"=rdi"(env)
