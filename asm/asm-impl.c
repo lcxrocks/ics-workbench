@@ -58,42 +58,42 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 // C 标准库中的 setjmp/longjmp，用于控制流长跳转
 // # our buffer looks like:
 // #  rbx,rbp,r12,r13,r14,r15,rsp,rip
-// int asm_setjmp(asm_jmp_buf env) {
-//   asm volatile(
-//     "movq %%rbx, (%%rdi);"
-//     "movq %%rbp, 0x8(%%rdi);"
-//     "movq %%r12, 0x10(%%rdi);"
-//     "movq %%r13, 0x18(%%rdi);"
-//     "movq %%r14, 0x20(%%rdi);"
-//     "movq %%r15, 0x28(%%rdi);"
-//     "leaq 8(%%rsp), %%rax;"
-//     "movq  %%rax, (%%rdi);"
-//     "movq (%%rsp), %%rax;"
-//     "movq (%%rax), 0x30(%%rdi);"
-//     :"=rdi"(env)
-//     :
-//     :"rax"
-//   );
-//   return 0;
-// }
 int asm_setjmp(asm_jmp_buf env) {
   asm volatile(
-    "mov %%rbx, (%%rdi);"
-    "mov %%rbp,0x8(%%rdi);"
-    "mov %%r12,0x10(%%rdi);"
-    "mov %%r13,0x18(%%rdi);"
-    "mov %%r14,0x20(%%rdi);"
-    "mov %%r15,0x28(%%rdi);"
-    "lea 0x8(%%rsp),%%rdx;"
-    "mov %%rdx, 0x30(%%rdi);"
-    "mov (%%rsp),%%rax;"
-    "mov %%rax, 0x38(%%rdi);"
-    : "=rdi"(env)
+    "movq %%rbx, (%%rdi);"
+    "movq %%rbp, 0x8(%%rdi);"
+    "movq %%r12, 0x10(%%rdi);"
+    "movq %%r13, 0x18(%%rdi);"
+    "movq %%r14, 0x20(%%rdi);"
+    "movq %%r15, 0x28(%%rdi);"
+    "leaq 8(%%rsp), %%rax;"
+    "movq  %%rax, (%%rdi);"
+    "movq (%%rsp), %%rax;"
+    "movq (%%rax), 0x30(%%rdi);"
+    :"=rdi"(env)
     :
-    :"rax","rdx"
+    :"rax"
   );
   return 0;
 }
+// int asm_setjmp(asm_jmp_buf env) {
+//   asm volatile(
+//     "mov %%rbx, (%%rdi);"
+//     "mov %%rbp,0x8(%%rdi);"
+//     "mov %%r12,0x10(%%rdi);"
+//     "mov %%r13,0x18(%%rdi);"
+//     "mov %%r14,0x20(%%rdi);"
+//     "mov %%r15,0x28(%%rdi);"
+//     "lea 0x8(%%rsp),%%rdx;"
+//     "mov %%rdx, 0x30(%%rdi);"
+//     "mov (%%rsp),%%rax;"
+//     "mov %%rax, 0x38(%%rdi);"
+//     : "=rdi"(env)
+//     :
+//     :"rax","rdx"
+//   );
+//   return 0;
+// }
 void asm_longjmp(asm_jmp_buf env, int val) {
   uint64_t _val = (uint64_t) val;
   asm volatile(
