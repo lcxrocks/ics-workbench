@@ -104,7 +104,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "movq %%rsi, %%rax;" //ret val
     "movq 8(%%rdi), %%rsp;"
     "movq 48(%%rdi), %%rsp;"
-    "pushq 56(%%rdi);" //ret addr
+    "movq 56(%%rdi), %%rdx;" //ret addr
     "movq (%%rdi), %%rbx;"
     "movq 16(%%rdi), %%r12;"
     "movq 24(%%rdi), %%r13;"
@@ -114,6 +114,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "testq %%rax, %%rax;" //if rax!=0, ret val = val;
     "movq $1, %%rsi;"
     "cmove %%rsi, %%rax;" //if rax=0, ret val = 1;
+    "jmpq *%%rdx;"
     :
     :"rdi"(env), "rsi"(_val)  
     );
