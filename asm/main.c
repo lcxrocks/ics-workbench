@@ -22,7 +22,7 @@ int main() {
   // setjmp test starts here
   setjmp_test0();
   setjmp_test1();
-  //setjmp_test2();
+  setjmp_test2();
   printf("OHHHHHHHHHHHHHHHH!\n");
 }
 
