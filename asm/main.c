@@ -7,6 +7,7 @@
 static void setjmp_test0();
 static void setjmp_test1();
 static void setjmp_test2();
+
 int main() {
   // TODO: add more tests here!
   assert(asm_add(1, 2) == 3);
@@ -30,7 +31,9 @@ struct log_entry {
   const char *str;
   int value;
 };
-static asm_jmp_buf bufferA, bufferB;
+
+static asm_jmp_buf bufferA;
+static asm_jmp_buf bufferB;
 static struct log_entry expected[] = {
   // expected output sequence for setjmp tests
   { "A", 0 },
