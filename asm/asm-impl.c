@@ -115,7 +115,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "cmove %%rsi, %%rax;" //if rax=0, ret val = 1;
     "jmpq *%%rdx;"
     :
-    :"rdi"(env), "rsi"(_val)  
+    :"rdi"(env), "rsi"(val)  
     );
     return ;
 }
