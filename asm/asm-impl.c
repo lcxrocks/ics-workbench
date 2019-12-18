@@ -76,30 +76,14 @@ int asm_setjmp(asm_jmp_buf env) {
   );
   return 0;
 }
-// int asm_setjmp(asm_jmp_buf env) {
-//   asm volatile(
-//     "mov %%rbx, (%%rdi);"
-//     "mov %%rbp,0x8(%%rdi);"
-//     "mov %%r12,0x10(%%rdi);"
-//     "mov %%r13,0x18(%%rdi);"
-//     "mov %%r14,0x20(%%rdi);"
-//     "mov %%r15,0x28(%%rdi);"
-//     "lea 0x8(%%rsp),%%rdx;"
-//     "mov %%rdx, 0x30(%%rdi);"
-//     "mov (%%rsp),%%rax;"
-//     "mov %%rax, 0x38(%%rdi);"
-//     : "=rdi"(env)
-//     :
-//     :"rax","rdx"
-//   );
-//   return 0;
-// }
+ 
 void asm_longjmp(asm_jmp_buf env, int val) {
   asm volatile(
     "movq %%rsi, %%rax;" //ret val
     "movq 8(%%rdi), %%rsp;"
     "movq 48(%%rdi), %%rsp;"
-    "movq 56(%%rdi), %%rdx;"
+    //"movq 56(%%rdi), %%rdx;"
+    "pushq 56(%%rdi);"
     "movq (%%rdi), %%rbx;"
     "movq 16(%%rdi), %%r12;"
     "movq 24(%%rdi), %%r13;"
@@ -109,9 +93,10 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "testq %%rax, %%rax;" //if rax!=0, ret val = val;
     "movq $1, %%rsi;"
     "cmove %%rsi, %%rax;" //if rax=0, ret val = 1;
-    "jmpq *%%rdx;"
+    //"jmpq *%%rdx;"
+    "ret;"
     :
     :"rdi"(env), "rsi"(val)  
-    :"rdx"
+    ://"rdx"
     );
 }
