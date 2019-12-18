@@ -6,7 +6,7 @@
 
 static void setjmp_test0();
 static void setjmp_test1();
-
+static void setjmp_test2();
 int main() {
   // TODO: add more tests here!
   assert(asm_add(1, 2) == 3);
@@ -53,7 +53,7 @@ static void setjmp_log(const char *str, int value) {
   head++;
 }
 
-static void setjmp_test2();
+
 static void setjmp_test1() {
   int r = 0;
   setjmp_log("A1", r);
