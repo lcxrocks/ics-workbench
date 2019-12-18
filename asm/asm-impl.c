@@ -66,13 +66,13 @@ int asm_setjmp(asm_jmp_buf env) {
     "movq %%r13, 0x18(%%rdi);"
     "movq %%r14, 0x20(%%rdi);"
     "movq %%r15, 0x28(%%rdi);"
-    "leaq 8(%%rsp), %%rax;"
-    "movq  %%rax, (%%rdi);"
+    "leaq 8(%%rsp), %%rdx;"
+    "movq  %%rdx, (%%rdi);"
     "movq (%%rsp), %%rax;"
     "movq (%%rax), 0x30(%%rdi);"
     :"=rdi"(env)
     :
-    :"rax"
+    :"rax","rdx"
   );
   return 0;
 }
