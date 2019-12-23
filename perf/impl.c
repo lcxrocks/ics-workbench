@@ -77,6 +77,7 @@ void multimod_p1(int64_t a, int64_t b, int64_t m) {
 }
 
 void multimod_p2(int64_t a, int64_t b, int64_t m) {
+  printf("a:%ld\n",a);
     uint64_t tmp = 0;
     if(a<b) tmp=a,a=b,b=tmp; //swap(a,b)
     uint32_t A[70]={};
