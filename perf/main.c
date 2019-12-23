@@ -93,9 +93,9 @@ static void run(void (*func)(), int rounds) {
     printf("testing...\n");
     for (int round = 0; round < rounds; round++) {
       fgets(tmp, 256, fp);
-      num = strtok(tmp,delim);  sscanf(num, "%x", &a); 
-      num = strtok(NULL,delim); sscanf(num, "%x", &b);
-      num = strtok(NULL,delim); sscanf(num, "%x", &m);    
+      num = strtok(tmp,delim);  sscanf(num, "%lx", &a); 
+      num = strtok(NULL,delim); sscanf(num, "%lx", &b);
+      num = strtok(NULL,delim); sscanf(num, "%lx", &m);    
       memset(tmp,0,sizeof(tmp));
       struct timespec st, ed;
       clock_gettime(CLOCK_REALTIME, &st);
