@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <stdint.h>
-#include "../multimod/multimod.h"
+
 #define DECL(fn) void fn();
 
 PROGRAMS(DECL)

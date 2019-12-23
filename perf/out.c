@@ -2077,6 +2077,98 @@ extern void __assert (const char *__assertion, const char *__file, int __line)
 
 
 # 6 "main.c" 2
+# 1 "/usr/include/x86_64-linux-gnu/sys/time.h" 1 3 4
+# 34 "/usr/include/x86_64-linux-gnu/sys/time.h" 3 4
+
+# 52 "/usr/include/x86_64-linux-gnu/sys/time.h" 3 4
+struct timezone
+  {
+    int tz_minuteswest;
+    int tz_dsttime;
+  };
+
+typedef struct timezone *__restrict __timezone_ptr_t;
+# 68 "/usr/include/x86_64-linux-gnu/sys/time.h" 3 4
+extern int gettimeofday (struct timeval *__restrict __tv,
+    __timezone_ptr_t __tz) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern int settimeofday (const struct timeval *__tv,
+    const struct timezone *__tz)
+     __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern int adjtime (const struct timeval *__delta,
+      struct timeval *__olddelta) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+enum __itimer_which
+  {
+
+    ITIMER_REAL = 0,
+
+
+    ITIMER_VIRTUAL = 1,
+
+
+
+    ITIMER_PROF = 2
+
+  };
+
+
+
+struct itimerval
+  {
+
+    struct timeval it_interval;
+
+    struct timeval it_value;
+  };
+
+
+
+
+
+
+typedef int __itimer_which_t;
+
+
+
+
+extern int getitimer (__itimer_which_t __which,
+        struct itimerval *__value) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int setitimer (__itimer_which_t __which,
+        const struct itimerval *__restrict __new,
+        struct itimerval *__restrict __old) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int utimes (const char *__file, const struct timeval __tvp[2])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern int lutimes (const char *__file, const struct timeval __tvp[2])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern int futimes (int __fd, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__));
+# 186 "/usr/include/x86_64-linux-gnu/sys/time.h" 3 4
+
+# 7 "main.c" 2
 # 1 "/usr/include/time.h" 1 3 4
 # 29 "/usr/include/time.h" 3 4
 # 1 "/usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h" 1 3 4
@@ -2293,7 +2385,7 @@ extern int timespec_get (struct timespec *__ts, int __base)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 # 307 "/usr/include/time.h" 3 4
 
-# 7 "main.c" 2
+# 8 "main.c" 2
 # 1 "/usr/lib/gcc/x86_64-linux-gnu/8/include/stdint.h" 1 3 4
 # 9 "/usr/lib/gcc/x86_64-linux-gnu/8/include/stdint.h" 3 4
 # 1 "/usr/include/stdint.h" 1 3 4
@@ -2359,34 +2451,58 @@ typedef unsigned long int uintptr_t;
 typedef __intmax_t intmax_t;
 typedef __uintmax_t uintmax_t;
 # 10 "/usr/lib/gcc/x86_64-linux-gnu/8/include/stdint.h" 2 3 4
-# 8 "main.c" 2
+# 9 "main.c" 2
 
 
 
 
-# 11 "main.c"
-void dummy(); void print_hello(); void print_error(); void simple_loop();
+# 12 "main.c"
+void dummy(); void print_hello(); void print_error(); void simple_loop(); void multimod_p1(); void multimod_p2(); void multimod_p3();
 
 static void run(void (*func)(), int rounds);
-static uint64_t gettime();
+
 static void (*lookup(const char *fn))();
 
 int main(int argc, char **argv) {
 
-  void (*func)() = lookup("dummy");
-  int rounds = 10;
+  char funcname[64]= "";
+  char *fun = funcname;
+  int rounds = 1;
+  char dummy[64] = "dummy";
+  memset(funcname, 0, sizeof(funcname));
+  switch (argc)
+  {
+  case 1:
+    memcpy(funcname, dummy, sizeof(funcname));
+    rounds = 1;
+    break;
+
+  case 2:
+    memcpy(funcname, argv[1], sizeof(funcname));
+    rounds = 1;
+    break;
+
+  case 4:
+    memcpy(funcname, argv[3], sizeof(funcname));
+    rounds = atoi(argv[2]);
+    break;
+
+  default:
+    printf("Invalid arg list.\n");
+    return 1;
+    break;
+  }
+
+  void (*func)() = lookup(fun);
 
   run(func, rounds);
 }
 
-static uint64_t gettime() {
 
-  return time(
-# 27 "main.c" 3 4
-             ((void *)0)
-# 27 "main.c"
-                 );
-}
+
+
+
+
 
 static void (*lookup(const char *fn))() {
 
@@ -2395,7 +2511,7 @@ static void (*lookup(const char *fn))() {
     void *ptr;
   };
   struct pair lut[] = {
-    { "dummy", dummy }, { "print_hello", print_hello }, { "print_error", print_error }, { "simple_loop", simple_loop },
+    { "dummy", dummy }, { "print_hello", print_hello }, { "print_error", print_error }, { "simple_loop", simple_loop }, { "multimod_p1", multimod_p1 }, { "multimod_p2", multimod_p2 }, { "multimod_p3", multimod_p3 },
   };
 
   for (int i = 0; i < (sizeof(lut) / sizeof(lut[0])); i++) {
@@ -2413,12 +2529,24 @@ static void run(void (*func)(), int rounds) {
   }
 
   for (int round = 0; round < rounds; round++) {
-    uint64_t st = gettime();
+    struct timespec st, ed;
+    clock_gettime(
+# 85 "main.c" 3 4
+                 0
+# 85 "main.c"
+                               , &st);
     func();
-    uint64_t ed = gettime();
-    elapsed[round] = ed - st;
-  }
+    clock_gettime(
+# 87 "main.c" 3 4
+                 0
+# 87 "main.c"
+                               , &ed);
+    uint64_t time_second = (ed.tv_sec - st.tv_sec);
+    uint64_t time_nsecond = (ed.tv_nsec - st.tv_nsec);
 
+
+    printf("CPU time used: %lds \t %ld ns\n", time_second, time_nsecond);
+  }
 
 
   free(elapsed);
