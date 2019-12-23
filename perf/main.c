@@ -23,7 +23,8 @@ int main(int argc, char **argv) {
   switch (argc)
   {
   case 1: //./perf
-    memcpy(funcname, "dummy", sizeof(funcname));
+    char dummy = "dummy"; // to make gcc happy
+    memcpy(funcname, dummy, sizeof(funcname));
     rounds = 1;
     break;
 
