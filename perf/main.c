@@ -82,9 +82,9 @@ static void run(void (*func)(), int rounds) {
 
   for (int round = 0; round < rounds; round++) {
     struct timespec st, ed;
-    clock_gettime(NULL, &st);
+    clock_gettime(CLOCK_REALTIME, &st);
     func();
-    clock_gettime(NULL, &ed);
+    clock_gettime(CLOCK_RESLTIME, &ed);
     double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
     //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
     printf("CPU timeused: %f s\n", time_second);
