@@ -93,6 +93,7 @@ static void run(void (*func)(), int rounds) {
     printf("testing...\n");
     for (int i = 0; i < 5; i++)
     {
+      rewind(fp);
       for (int round = 0; round < rounds; round++) {
       //printf("round: %d\n",round);
       fgets(tmp, 256, fp);
