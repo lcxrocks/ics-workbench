@@ -79,7 +79,6 @@ static void run(void (*func)(), int rounds) {
   int64_t a=0;
   int64_t b=0;
   int64_t m=0;
-  int64_t result = 0;
   char *delim= " ";
   char *num;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
