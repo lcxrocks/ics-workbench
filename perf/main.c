@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   char funcname[64]= ""; 
   char *fun = funcname;
   int rounds = 1;
-  memcpy(funcname, NULL, sizeof(funcname));
+  memset(funcname, 0, sizeof(funcname));
   switch (argc)
   {
   case 1: //./perf
