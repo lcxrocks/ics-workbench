@@ -74,13 +74,13 @@ static void (*lookup(const char *fn))() {
 }
 
 static void run(void (*func)(), int rounds) {
-  FILE *fp = fopen("test.txt","r");
-  char tmp[256]={};
-  int64_t a=0;
-  int64_t b=0;
-  int64_t m=0;
-  char *delim= " ";
-  char *num;
+  // FILE *fp = fopen("test.txt","r");
+  // char tmp[256]={};
+  // int64_t a=0;
+  // int64_t b=0;
+  // int64_t m=0;
+  // char *delim= " ";
+  // char *num;
   //uint64_t time_second = 0;
   double time_nsecond = 0;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
@@ -88,11 +88,11 @@ static void run(void (*func)(), int rounds) {
     perror("elapsed");
     return;
   }
-  if(NULL == fp) printf("Cannot find file!\n");
-  else{
+  // if(NULL == fp) printf("Cannot find file!\n");
+  // else{
     printf("testing...\n");
-    for (int i = 0; i < 5; i++)
-    {
+  //  for (int i = 0; i < 7; i++)
+  //  {
       rewind(fp);
       for (int round = 0; round < rounds; round++) {
       //printf("round: %d\n",round);
@@ -110,9 +110,9 @@ static void run(void (*func)(), int rounds) {
       //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
       //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
     }
-  }
-  printf("Total time used: %lfns\n", time_nsecond/5);
-  }
+  //}
+  printf("Total time used: %lfns\n", time_nsecond);
+  //}
   // TODO: display runtime statistics
   free(elapsed);
 }
