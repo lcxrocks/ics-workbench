@@ -50,13 +50,11 @@ int main(int argc, char **argv) {
   run(func, rounds);
 }
 
-static uint64_t gettime() {
-  // TODO: implement me!
-  struct timeval t0;
-  gettimeofday(&t0, NULL);
-  clock_t c_time = clock();  //current time
-  return c_time;
-}
+// static uint64_t gettime() {
+//   // TODO: implement me!
+//   clock_t c_time = clock();  //current time
+//   return c_time;
+// } No need to used in this implementation
 
 static void (*lookup(const char *fn))() {
   #define PAIR(fn) { #fn, fn },
