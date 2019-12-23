@@ -19,11 +19,11 @@ int main(int argc, char **argv) {
   char funcname[64]= ""; 
   char *fun = funcname;
   int rounds = 1;
+  char dummy[8] = "dummy"; // to make gcc happy
   memset(funcname, 0, sizeof(funcname));
   switch (argc)
   {
   case 1: //./perf
-    char dummy[8] = "dummy"; // to make gcc happy
     memcpy(funcname, dummy, sizeof(funcname));
     rounds = 1;
     break;
