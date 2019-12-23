@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <sys/time.h>
 #include <time.h>
 #include <stdint.h>
 
@@ -51,6 +52,8 @@ int main(int argc, char **argv) {
 
 static uint64_t gettime() {
   // TODO: implement me!
+  struct timeval t0;
+  gettimeofday(&t0, NULL);
   clock_t c_time = clock();  //current time
   return c_time;
 }
@@ -80,12 +83,13 @@ static void run(void (*func)(), int rounds) {
   }
 
   for (int round = 0; round < rounds; round++) {
-    uint64_t st = gettime();
+    struct timeval st, ed;
+    gettimeofday(&st, NULL);
     func();
-    uint64_t ed = gettime();
-    elapsed[round] = ed - st;
-    double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
-    printf("CPU clock used: %ld \t timeused: %f \n", elapsed[round], time_second);
+    gettime(&ed, NULL);
+    double time_second = ed.tv_sec - st.tv_sec+(ed.tv_usec - st.tv_usec)/1000000.0; 
+    //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
+    printf("CPU timeused: %f \n", time_second);
   }
 
   // TODO: display runtime statistics
