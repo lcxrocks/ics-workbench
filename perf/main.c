@@ -9,7 +9,7 @@
 
 #define DECL(fn) void fn();
 
-PROGRAMS(DECL)
+PROGRAMS(DECL) //declared here
 
 static void run(void (*func)(), int rounds);
 //static uint64_t gettime();
