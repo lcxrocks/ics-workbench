@@ -73,6 +73,7 @@ void multimod_p1(int64_t a, int64_t b, int64_t m) {
       result = (uint64_t)(ans10x + C[i]) %(uint64_t)m;
       //assert(result < m);
     }
+    printf("abm\n");
     //return (int64_t)result;
 }
 
