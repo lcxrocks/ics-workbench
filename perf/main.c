@@ -102,6 +102,7 @@ static void run(void (*func)(), int rounds) {
       func(a,b,m);
       clock_gettime(CLOCK_REALTIME, &ed);
       time_second += (ed.tv_sec - st.tv_sec);
+      printf("ts: %ld\n", time_second);
       time_msecond += (ed.tv_nsec - st.tv_nsec)/1000000;
       //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
       //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
