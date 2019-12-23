@@ -81,6 +81,8 @@ static void run(void (*func)(), int rounds) {
   int64_t m=0;
   char *delim= " ";
   char *num;
+  uint64_t time_second;
+  double time_msecond;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
   if (!elapsed) {
     perror("elapsed");
@@ -91,20 +93,20 @@ static void run(void (*func)(), int rounds) {
     printf("testing...\n");
     for (int round = 0; round < rounds; round++) {
       fgets(tmp, 256, fp);
-      num = strtok(tmp,delim);  sscanf(num, "%ld", &a); 
-      num = strtok(NULL,delim); sscanf(num, "%ld", &b);
-      num = strtok(NULL,delim); sscanf(num, "%ld", &m);    
+      num = strtok(tmp,delim);  sscanf(num, "%x", &a); 
+      num = strtok(NULL,delim); sscanf(num, "%x", &b);
+      num = strtok(NULL,delim); sscanf(num, "%x", &m);    
       memset(tmp,0,sizeof(tmp));
       struct timespec st, ed;
       clock_gettime(CLOCK_REALTIME, &st);
       func(a,b,m);
       clock_gettime(CLOCK_REALTIME, &ed);
-      uint64_t time_second = (ed.tv_sec - st.tv_sec);
-      uint64_t time_nsecond = (ed.tv_nsec - st.tv_nsec);
+      time_second += (ed.tv_sec - st.tv_sec);
+      time_msecond += (ed.tv_nsec - st.tv_nsec)/1000000;
       //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
       //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
-      printf("CPU time used: %lds \t %ld ns\n", time_second, time_nsecond);
   }
+  printf("Total time used: %lds %lfms\n",time_second, time_msecond);
   }
   // TODO: display runtime statistics
   free(elapsed);
