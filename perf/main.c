@@ -74,7 +74,7 @@ static void (*lookup(const char *fn))() {
 }
 
 static void run(void (*func)(), int rounds) {
-  FILE *fp = fopen("test.txt","r")
+  FILE *fp = fopen("test.txt","r");
   char tmp[256]={};
   int64_t a=0;
   int64_t b=0;
