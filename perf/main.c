@@ -81,7 +81,7 @@ static void run(void (*func)(), int rounds) {
   int64_t m=0;
   char *delim= " ";
   char *num;
-  uint64_t time_second = 0;
+  //uint64_t time_second = 0;
   double time_msecond = 0;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
   if (!elapsed) {
@@ -101,13 +101,12 @@ static void run(void (*func)(), int rounds) {
       clock_gettime(CLOCK_REALTIME, &st);
       func(a,b,m);
       clock_gettime(CLOCK_REALTIME, &ed);
-      time_second += (ed.tv_sec - st.tv_sec);
-      printf("ts: %ld\n", time_second);
-      time_msecond += (ed.tv_nsec - st.tv_nsec)/1000000;
+      //time_second += (ed.tv_sec - st.tv_sec);
+      time_msecond += (ed.tv_nsec - st.tv_nsec);
       //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
       //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
   }
-  printf("Total time used: %lds %lfms\n",time_second, time_msecond);
+  printf("Total time used: %lfns\n", time_msecond);
   }
   // TODO: display runtime statistics
   free(elapsed);
