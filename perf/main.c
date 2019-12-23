@@ -98,6 +98,7 @@ static void run(void (*func)(), int rounds) {
       num = strtok(NULL,delim); sscanf(num, "%lx", &m);    
       memset(tmp,0,sizeof(tmp));
       struct timespec st, ed;
+      printf("hhahah\n");
       clock_gettime(CLOCK_REALTIME, &st);
       func(a,b,m);
       clock_gettime(CLOCK_REALTIME, &ed);
