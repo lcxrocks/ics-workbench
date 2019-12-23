@@ -82,7 +82,7 @@ static void run(void (*func)(), int rounds) {
   char *delim= " ";
   char *num;
   //uint64_t time_second = 0;
-  double time_msecond = 0;
+  double time_nsecond = 0;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
   if (!elapsed) {
     perror("elapsed");
@@ -91,7 +91,9 @@ static void run(void (*func)(), int rounds) {
   if(NULL == fp) printf("Cannot find file!\n");
   else{
     printf("testing...\n");
-    for (int round = 0; round < rounds; round++) {
+    for (int i = 0; i < 5; i++)
+    {
+      for (int round = 0; round < rounds; round++) {
       //printf("round: %d\n",round);
       fgets(tmp, 256, fp);
       num = strtok(tmp,delim);  sscanf(num, "%lx", &a); 
@@ -103,11 +105,12 @@ static void run(void (*func)(), int rounds) {
       func(a,b,m);
       clock_gettime(CLOCK_REALTIME, &ed);
       //time_second += (ed.tv_sec - st.tv_sec);
-      time_msecond += (ed.tv_nsec - st.tv_nsec);
+      time_nsecond += (ed.tv_nsec - st.tv_nsec);
       //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
       //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
+    }
   }
-  printf("Total time used: %lfns\n", time_msecond);
+  printf("Total time used: %lfns\n", time_nsecond/5);
   }
   // TODO: display runtime statistics
   free(elapsed);
