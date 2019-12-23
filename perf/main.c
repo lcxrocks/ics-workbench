@@ -81,13 +81,13 @@ static void run(void (*func)(), int rounds) {
   }
 
   for (int round = 0; round < rounds; round++) {
-    struct timeval st, ed;
-    gettimeofday(&st, NULL);
+    struct timespec st, ed;
+    clock_gettime(NULL, &st);
     func();
-    gettimeofday(&ed, NULL);
-    double time_second = ed.tv_sec - st.tv_sec+(ed.tv_usec - st.tv_usec)/1000000.0; 
+    clock_gettime(NULL, &ed);
+    double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
     //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
-    printf("CPU timeused: %f \n", time_second);
+    printf("CPU timeused: %f s\n", time_second);
   }
 
   // TODO: display runtime statistics
