@@ -89,7 +89,7 @@ static void run(void (*func)(), int rounds) {
     uint64_t time_nsecond = (ed.tv_nsec - st.tv_nsec);
     //double time_second = ed.tv_sec - st.tv_sec+(ed.tv_nsec - st.tv_nsec)/1000000000.0; 
     //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
-    printf("CPU time used: %ld s %ld ns\n", time_second, time_nsecond);
+    printf("CPU time used: %lds \t %ld ns\n", time_second, time_nsecond);
   }
 
   // TODO: display runtime statistics
