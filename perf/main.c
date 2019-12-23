@@ -16,15 +16,42 @@ static void (*lookup(const char *fn))();
 
 int main(int argc, char **argv) {
   // TODO: parse arguments: set @func and @rounds
-  void (*func)() = lookup("dummy");
-  int rounds = 10;
+  char funcname[64]= ""; 
+  char *func = funcname;
+  int rounds = 1;
+  memcpy(funcname, 0, sizeof(funcname));
+  switch (argc)
+  {
+  case 1: //./perf
+    memcpy(funcname, "dummy", sizeof(funcname));
+    round = 1;
+    break;
+
+  case 2: //./perf dummy
+    memcpy(funcname, argv[1], sizeof(funcname));
+    round = 1; 
+    break;
+  
+  case 4: //./perf -r 10000 dummy
+    memcpy(funcname, argv[3], sizeof(funcname));
+    round = atoi(argv[2]);
+    break;
+
+  default:
+    printf("Invalid arg list.\n");
+    return 1;
+    break;
+  }
+  
+  void (*func)() = lookup(func);
 
   run(func, rounds);
 }
 
 static uint64_t gettime() {
   // TODO: implement me!
-  return time(NULL);
+  clock_t c_time = clock();  //current time
+  return c_time;
 }
 
 static void (*lookup(const char *fn))() {
@@ -56,9 +83,10 @@ static void run(void (*func)(), int rounds) {
     func();
     uint64_t ed = gettime();
     elapsed[round] = ed - st;
+    double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
+    printf("CPU clock used: %ld \t timeused: %f \n", )
   }
 
   // TODO: display runtime statistics
-
   free(elapsed);
 }
