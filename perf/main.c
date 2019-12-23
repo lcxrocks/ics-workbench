@@ -81,8 +81,8 @@ static void run(void (*func)(), int rounds) {
   int64_t m=0;
   char *delim= " ";
   char *num;
-  uint64_t time_second;
-  double time_msecond;
+  uint64_t time_second = 0;
+  double time_msecond = 0;
   uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
   if (!elapsed) {
     perror("elapsed");
