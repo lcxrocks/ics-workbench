@@ -92,6 +92,7 @@ static void run(void (*func)(), int rounds) {
   else{
     printf("testing...\n");
     for (int round = 0; round < rounds; round++) {
+      printf("round: %d\n",round);
       fgets(tmp, 256, fp);
       num = strtok(tmp,delim);  sscanf(num, "%lx", &a); 
       num = strtok(NULL,delim); sscanf(num, "%lx", &b);
