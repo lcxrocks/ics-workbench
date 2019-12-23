@@ -97,7 +97,8 @@ void multimod_p2(int64_t a, int64_t b, int64_t m) {
 }
 
 void multimod_p3(int64_t a, int64_t b, int64_t m) {
-  int64_t tmp = 0;
-  tmp = (a * b - (int64_t)((double)a * b / m) * m) % m; //make gcc happy
+  int64_t t = 0;
+  t = (a * b - (int64_t)((double)a * b / m) * m) % m; 
+  (void) t; //make gcc happy
   //return t < 0 ? t + m : t;
 }
