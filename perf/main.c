@@ -86,7 +86,7 @@ static void run(void (*func)(), int rounds) {
     struct timeval st, ed;
     gettimeofday(&st, NULL);
     func();
-    gettime(&ed, NULL);
+    gettimeofday(&ed, NULL);
     double time_second = ed.tv_sec - st.tv_sec+(ed.tv_usec - st.tv_usec)/1000000.0; 
     //double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
     printf("CPU timeused: %f \n", time_second);
