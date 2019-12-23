@@ -93,6 +93,7 @@ void multimod_p2(int64_t a, int64_t b, int64_t m) {
     {
       result  = (uint64_t)((result << 1)%m + (uint64_t)(A[i]*b)) %m;
     }
+    printf("a:%lx\n",a);
     //return (int64_t) result;
 }
 
