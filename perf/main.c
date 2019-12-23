@@ -24,17 +24,17 @@ int main(int argc, char **argv) {
   {
   case 1: //./perf
     memcpy(funcname, "dummy", sizeof(funcname));
-    round = 1;
+    rounds = 1;
     break;
 
   case 2: //./perf dummy
     memcpy(funcname, argv[1], sizeof(funcname));
-    round = 1; 
+    rounds = 1; 
     break;
   
   case 4: //./perf -r 10000 dummy
     memcpy(funcname, argv[3], sizeof(funcname));
-    round = atoi(argv[2]);
+    rounds = atoi(argv[2]);
     break;
 
   default:
