@@ -17,7 +17,7 @@ static void (*lookup(const char *fn))();
 int main(int argc, char **argv) {
   // TODO: parse arguments: set @func and @rounds
   char funcname[64]= ""; 
-  char *func = funcname;
+  char *fun = funcname;
   int rounds = 1;
   memcpy(funcname, 0, sizeof(funcname));
   switch (argc)
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     break;
   }
   
-  void (*func)() = lookup(func);
+  void (*func)() = lookup(fun);
 
   run(func, rounds);
 }
