@@ -84,7 +84,7 @@ static void run(void (*func)(), int rounds) {
     uint64_t ed = gettime();
     elapsed[round] = ed - st;
     double time_second = elapsed[round] / CLOCKS_PER_SEC ; // get time(seconds)
-    printf("CPU clock used: %ld \t timeused: %f \n", )
+    printf("CPU clock used: %ld \t timeused: %f \n", elapsed[round], time_second);
   }
 
   // TODO: display runtime statistics
