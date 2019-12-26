@@ -12,10 +12,19 @@
 #define MEM_SIZE (1 << 25) // 1MB
 #define BLOCK_WIDTH  6  // 64B
 #define BLOCK_SIZE exp2(BLOCK_WIDTH)
+#define NR_LINE
 
 typedef uint8_t bool;
 #define true 1
 #define false 0
+
+struct _LINE
+{
+    bool valid;
+    bool dirty;
+    uint32_t tag;
+    uint32_t data[16];
+}line[1024];
 
 void cycle_increase(int n);
 
