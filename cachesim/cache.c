@@ -79,7 +79,7 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   assert(line_replace <= gp_end);
   unload(group_number,line_replace);
   load(addr,line_replace, tag);
-  clock_gettime(CLOCK_REALTIME, &cache_st);
+  clock_gettime(CLOCK_REALTIME, &cache_ed);
   miss_time += (cache_ed.tv_nsec - cache_st.tv_nsec);
   return line_replace;
 }
