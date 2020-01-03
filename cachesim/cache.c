@@ -1,7 +1,7 @@
 #include "common.h"
 #include <inttypes.h>
 
-uint32_t choose(uint32_t n);
+static inline uint32_t choose(uint32_t n) { return rand() % n; }
 
 #define block_offset 0x3F; //get block offset
 uint32_t nr_line; 
