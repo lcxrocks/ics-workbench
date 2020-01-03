@@ -122,6 +122,7 @@ void init_cache(int total_size_width, int associativity_width) {
     line[i].dirty = false;
     line[i].valid = false;
   }
+  printf("finished init_cache, tt: %d, as:%d, gp:%d, nr_line:%d\n",tt,as,gp,nr_line);
 }
 
 void display_statistic(void) {

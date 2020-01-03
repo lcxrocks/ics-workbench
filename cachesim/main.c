@@ -133,9 +133,7 @@ void replay_trace(void) {
 
 int main(int argc, char *argv[]) {
   parse_args(argc, argv);
-  printf("finished parse args\n");
   init_rand(seed);
-
   init_mem();
   printf("finishded init mem\n");
   init_cache(14, 2);
