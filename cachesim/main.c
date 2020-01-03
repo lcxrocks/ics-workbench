@@ -66,7 +66,7 @@ static void random_trace(void) {
     t.t.len = choose_len[ choose(sizeof(choose_len) / sizeof(choose_len[0])) ] ;
     t.t.addr = choose(MEM_SIZE) & ~(t.t.len - 1);
     t.t.is_write = choose(2);
-    if (t.t.is_write) t.data = rand();
+    if (t.t.is_write) t.data = 0;//rand();
 
     trace_exec(&t, true);
   }
