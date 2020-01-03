@@ -77,7 +77,7 @@ uint32_t cache_read(uintptr_t addr) {
   uint32_t line_number = check_hit(gp_number,tag);
 
   if (line_number >= 0)
-    return line[i].data[data_num];
+    return line[line_number].data[data_num];
   
   else //否则就要进行替换
   {
