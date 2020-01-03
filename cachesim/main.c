@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
   init_cache(14, 2);
   printf("finished init_cache\n");
   replay_trace();
-
+  printf("finished replay_trace\n");
   display_statistic();
 
   return 0;
