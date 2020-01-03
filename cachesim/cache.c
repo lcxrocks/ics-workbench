@@ -102,13 +102,14 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   uint32_t in_block_addr = addr & block_offset; //获得组内地址
   uint32_t data_num = in_block_addr >>2; //因为data是用uint32存的，所以每次取都只取1整个data出来(4 Byte)
   uint32_t line_number = check_hit(gp_number,tag);
+  printf("addr\t\tdata\t\twmask\t\ttag\t\tgp_number\t\tin_block_addr\t\tdata_num\t\t\n");
+  printf("%8x\t%8x\t%8x\t%8x\t%8x\t%8x\t%8x\t\n",addr, data, wmask, tag, gp_number, in_block_addr, data_num);
   if (line_number >= 0)
     write2line(line_number, data_num, data, wmask);
   else{
     uint32_t line_miss = replace(addr, gp_number, tag);
     write2line(line_miss, data_num, data, wmask);
   }
-  
 }
 
 void init_cache(int total_size_width, int associativity_width) {
