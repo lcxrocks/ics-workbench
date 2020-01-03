@@ -115,7 +115,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
 void init_cache(int total_size_width, int associativity_width) {
   tt = total_size_width;
   as = associativity_width;
-  gp = tt - BLOCK_SIZE - as;
+  gp = tt - BLOCK_WIDTH - as;
   nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
   for (int i = 0; i < nr_line; i++)
   {
