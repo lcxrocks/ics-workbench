@@ -58,8 +58,10 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   //printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
   for (int i = gp_start; i <= gp_end; i++)
   {
-    if (line[i].valid == false) load(addr,i, tag);
+    if (line[i].valid == false) 
+    {load(addr,i, tag);
     return i; //返回新装入的行号
+    }
   }
   //开始随机替换
   int32_t line_replace = gp_start + choose(NR_GP);
