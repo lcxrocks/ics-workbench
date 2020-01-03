@@ -42,7 +42,7 @@ static void trace_exec(struct trace *t, bool is_check) {
       uint32_t check_write = cpu_uncache_read(t->t.addr, t->t.len);
       uint32_t check_cache_write = cpu_read(t->t.addr, t->t.len);
       assert(check_cache_write == check_write);
-      printf("write check success!\n");
+      //printf("write check success!\n");
     }
   }
   else {
