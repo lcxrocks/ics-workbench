@@ -1,7 +1,7 @@
 #include <string.h>
 #include "common.h"
 
-static uint8_t mem[MEM_SIZE];
+static uint8_t mem[MEM_SIZE]; //单位：byte
 static uint8_t mem_diff[MEM_SIZE];
 
 void init_mem(void) {
