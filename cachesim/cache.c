@@ -110,6 +110,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   if (line_number >= 0)
     write2line(line_number, data_num, data, wmask);
   else{
+    printf("write miss!\n");
     uint32_t line_miss = replace(addr, gp_number, tag);
     write2line(line_miss, data_num, data, wmask);
   }
