@@ -46,6 +46,7 @@ static void trace_exec(struct trace *t, bool is_check) {
       assert(ret == ret_uncache);
     }
   }
+  printf("haha!\n");
 }
 
 static void random_trace(void) {
