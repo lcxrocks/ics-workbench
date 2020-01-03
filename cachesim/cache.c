@@ -131,4 +131,5 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
+  
 }

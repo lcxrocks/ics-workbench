@@ -7,8 +7,7 @@ static uint8_t mem_diff[MEM_SIZE];
 void init_mem(void) {
   int i;
   for (i = 0; i < MEM_SIZE; i ++) {
-    //mem[i] = rand() & 0xff;
-    mem[i] = 0xff;
+    mem[i] = rand() & 0xff;
   }
 
   memcpy(mem_diff, mem, MEM_SIZE);
