@@ -62,7 +62,7 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
     return i; //返回新装入的行号
   }
   //开始随机替换
-  uint32_t line_replace = gp_start + choose(NR_GP);
+  int32_t line_replace = gp_start + choose(NR_GP);
   assert(line_replace <= gp_end);
   unload(group_number,line_replace);
   load(addr,line_replace, tag);
