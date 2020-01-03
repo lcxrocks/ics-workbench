@@ -1,6 +1,6 @@
 #include "common.h"
 #include <inttypes.h>
-
+#include <time.h>
 static inline uint32_t choose(uint32_t n) { return rand() % n; }
 
 #define block_offset 0x3F; //get block offset
@@ -9,7 +9,13 @@ uint32_t tt; //short for total_size_width
 uint32_t as; //short for associativity width
 uint32_t gp; //short for group number width
 #define NR_GP exp2(as) //组内行数
-double write_time, read_time, total_time;
+
+double write_time, read_time, total_time; //for statistics
+double miss_time = 0;
+int total_cnt = 0;
+int miss_cnt = 0;
+int hit_cnt = 0;
+struct timespec cache_st, cache_ed;
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
@@ -48,12 +54,15 @@ int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对
     if (line[i].valid == true && line[i].tag == tag)
     {
       return i; //返回hit后所在的行号
+      hit_cnt++;
     }
   }
   return -1;
 }
 
 uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
+  miss_cnt++;
+  clock_gettime(CLOCK_REALTIME, &cache_st);
   int gp_start = group_number * NR_GP;
   int gp_end = gp_start + NR_GP -1;
   //printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
@@ -70,6 +79,8 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   assert(line_replace <= gp_end);
   unload(group_number,line_replace);
   load(addr,line_replace, tag);
+  clock_gettime(CLOCK_REALTIME, &cache_st);
+  miss_time += (cache_ed.tv_nsec - cache_st.tv_nsec);
   return line_replace;
 }
 
@@ -112,7 +123,6 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   if (line_number >= 0)
     write2line(line_number, data_num, data, wmask);
   else{
-    //printf("write miss!\n");
     int line_miss = replace(addr, gp_number, tag);
     write2line(line_miss, data_num, data, wmask);
   }
@@ -123,7 +133,13 @@ void init_cache(int total_size_width, int associativity_width) {
   as = associativity_width;
   gp = tt - BLOCK_WIDTH - as;
   nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
+
   cycle_cnt = 0;
+  miss_time = 0;
+  total_cnt = 0;
+  miss_cnt = 0;
+  hit_cnt = 0;
+
   for (int i = 0; i < nr_line; i++)
   {
     line[i].dirty = false;
@@ -133,5 +149,8 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
-  
+  total_cnt = hit_cnt + miss_cnt;
+  total_time = read_time + write_time;
+  printf("hit: %d / %d;\n miss: %d / %d", hit_cnt, miss_cnt);
+  printf("miss_time: %lf / %lf\n", miss_time, total_time);
 }
