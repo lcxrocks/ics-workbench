@@ -55,7 +55,7 @@ int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对
 uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   int gp_start = group_number * NR_GP;
   int gp_end = gp_start + NR_GP -1;
-  printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
+  //printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
   for (int i = gp_start; i <= gp_end; i++)
   {
     if (line[i].valid == false) load(addr,i, tag);
