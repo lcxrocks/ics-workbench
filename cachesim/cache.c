@@ -78,6 +78,7 @@ uint32_t cache_read(uintptr_t addr) {
   int line_number = check_hit(gp_number,tag);
   printf("addr\t\ttag\t\tgp_number\tin_block_addr\tdata_num\t\t\n");
   printf("%8lx\t%8x\t%8x\t%8x\t%8x\t\n",addr,tag, gp_number, in_block_addr, data_num);
+  printf("read line_number: %d\n",line_number);
   if (line_number >= 0)
     return line[line_number].data[data_num];
   
