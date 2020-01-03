@@ -102,6 +102,7 @@ static void parse_args(int argc, char *argv[]) {
 }
 
 void replay_trace(void) {
+  printf("tracefile: %p\n",tracefile);
   if (tracefile == NULL) {
     random_trace();
     printf("random trace finished\n");
