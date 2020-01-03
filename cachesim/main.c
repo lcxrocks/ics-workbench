@@ -50,6 +50,7 @@ static void trace_exec(struct trace *t, bool is_check) {
     if (is_check) {
       printf("read checking...\n");
       uint32_t ret_uncache = cpu_uncache_read(t->t.addr, t->t.len);
+      printf("cache read: %8x, uncacheread: %8x\n",ret, ret_uncache);
       assert(ret == ret_uncache);
       printf("check success! \n");
     }
