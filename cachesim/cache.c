@@ -2,11 +2,11 @@
 #include <inttypes.h>
 
 #define block_offset 0x3F; //get block offset
-uint32_t NR_LINE = 0; 
-uint32_t tt = 0; //short for total_size_width
-uint32_t as = 0; //short for associativity width
-uint32_t gp = 0; //short for group number width
-#define NR_GP exp(as); //组内行数
+uint32_t NR_LINE; 
+uint32_t tt; //short for total_size_width
+uint32_t as; //short for associativity width
+uint32_t gp; //short for group number width
+#define NR_GP exp2(as); //组内行数
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
@@ -31,7 +31,7 @@ void unload(uint32_t group_number, uint32_t line_number){
   line[line_number].valid = false;
   if (line[line_number].dirty)
   {
-    uintptr_t block_number = line[line_number].tag << gp + group_number;
+    uintptr_t block_number = (line[line_number].tag << gp) + group_number;
     mem_write(block_number,(uint8_t *)(line[line_number].data));
     line[line_number].dirty = false;
   }
