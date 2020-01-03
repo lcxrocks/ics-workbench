@@ -35,18 +35,21 @@ struct trace {
 static void trace_exec(struct trace *t, bool is_check) {
   if (t->t.is_write) {
     cpu_write(t->t.addr, t->t.len, t->data);
+    printf("finished cpu_write\n");
     if (is_check) {
       cpu_uncache_write(t->t.addr, t->t.len, t->data);
+      printf("finished cpu_uncache_write\n");
     }
   }
   else {
     uint32_t ret = cpu_read(t->t.addr, t->t.len);
+    printf("finished cpu_read\n");
     if (is_check) {
       uint32_t ret_uncache = cpu_uncache_read(t->t.addr, t->t.len);
+      printf("finished cpu_uncache_read\n");
       assert(ret == ret_uncache);
     }
   }
-  printf("haha!\n");
 }
 
 static void random_trace(void) {
