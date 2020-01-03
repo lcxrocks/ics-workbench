@@ -1,12 +1,14 @@
 #include "common.h"
 #include <inttypes.h>
 
+uint32_t choose(uint32_t n);
+
 #define block_offset 0x3F; //get block offset
 uint32_t NR_LINE; 
 uint32_t tt; //short for total_size_width
 uint32_t as; //short for associativity width
 uint32_t gp; //short for group number width
-#define NR_GP exp2(as); //组内行数
+#define NR_GP exp2(as) //组内行数
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
