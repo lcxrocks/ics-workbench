@@ -32,15 +32,27 @@ struct trace {
   uint32_t data;
 };
 
+double write_time = 0;
+double read_time = 0;
+double total_time = 0;
+
+
+struct timespec st, ed;
 static void trace_exec(struct trace *t, bool is_check) {
   if (t->t.is_write) {
+    clock_gettime(CLOCK_REALTIME, &st);
     cpu_write(t->t.addr, t->t.len, t->data);
+    clock_gettime(CLOCK_REALTIME, &ed);
+    write_time += (ed.tv_nsec - st.tv_nsec);
     if (is_check) {
       cpu_uncache_write(t->t.addr, t->t.len, t->data);
     }
   }
   else {
+    clock_gettime(CLOCK_REALTIME, &st);
     uint32_t ret = cpu_read(t->t.addr, t->t.len);
+    clock_gettime(CLOCK_REALTIME, &ed);
+    read_time += (ed.tv_nsec - st.tv_nsec);
     if (is_check) {
       uint32_t ret_uncache = cpu_uncache_read(t->t.addr, t->t.len);
       assert(ret == ret_uncache);
@@ -102,10 +114,8 @@ static void parse_args(int argc, char *argv[]) {
 }
 
 void replay_trace(void) {
-  printf("tracefile: %p\n",tracefile);
   if (tracefile == NULL) {
     random_trace();
-    printf("random trace finished\n");
     check_diff();
     printf("Random test pass!\n");
     return;
@@ -129,8 +139,7 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv);
   init_rand(seed);
   init_mem();
-  printf("finishded init mem\n");
-  init_cache(13, 2);
+  init_cache(14, 2);
   replay_trace();
   //printf("finished replay_trace\n");
   display_statistic();

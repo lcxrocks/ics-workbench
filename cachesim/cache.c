@@ -9,6 +9,7 @@ uint32_t tt; //short for total_size_width
 uint32_t as; //short for associativity width
 uint32_t gp; //short for group number width
 #define NR_GP exp2(as) //组内行数
+double write_time, read_time, total_time;
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
