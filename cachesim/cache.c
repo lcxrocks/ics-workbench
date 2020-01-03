@@ -75,7 +75,8 @@ uint32_t cache_read(uintptr_t addr) {
   uint32_t in_block_addr = addr & block_offset; //获得组内地址
   uint32_t data_num = in_block_addr >>2; //因为data是用uint32存的，所以每次取都只取1整个data出来(4 Byte)
   uint32_t line_number = check_hit(gp_number,tag);
-
+  printf("addr\t\ttag\t\tgp_number\tin_block_addr\tdata_num\t\t\n");
+  printf("%8lx\t%8x\t%8x\t%8x\t%8x\t\n",addr,tag, gp_number, in_block_addr, data_num);
   if (line_number >= 0)
     return line[line_number].data[data_num];
   
