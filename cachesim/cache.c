@@ -87,9 +87,6 @@ uint32_t cache_read(uintptr_t addr) {
     int line_miss = replace(addr, gp_number, tag);
     return line[line_miss].data[data_num];
   }
-  
-  
-  return 0;
 }
 
 void write2line(int line_number, uint32_t data_num, uint32_t data, uint32_t wmask){
