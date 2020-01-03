@@ -122,6 +122,7 @@ void init_cache(int total_size_width, int associativity_width) {
   as = associativity_width;
   gp = tt - BLOCK_WIDTH - as;
   nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
+  cycle_cnt = 0;
   for (int i = 0; i < nr_line; i++)
   {
     line[i].dirty = false;

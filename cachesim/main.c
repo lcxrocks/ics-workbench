@@ -34,27 +34,16 @@ struct trace {
 
 static void trace_exec(struct trace *t, bool is_check) {
   if (t->t.is_write) {
-    //printf("t->t.is_write == true\n");
     cpu_write(t->t.addr, t->t.len, t->data);
-    //printf("finished cpu_write\n");
     if (is_check) {
       cpu_uncache_write(t->t.addr, t->t.len, t->data);
-      uint32_t check_write = cpu_uncache_read(t->t.addr, t->t.len);
-      uint32_t check_cache_write = cpu_read(t->t.addr, t->t.len);
-      assert(check_cache_write == check_write);
-      //printf("write check success!\n");
     }
   }
   else {
-    //printf("t->t.is_write == false\n");
     uint32_t ret = cpu_read(t->t.addr, t->t.len);
-    //printf("finished cpu_read\n");
     if (is_check) {
-      //printf("read checking...\n");
       uint32_t ret_uncache = cpu_uncache_read(t->t.addr, t->t.len);
-      //printf("cache read: %8x, uncacheread: %8x\n",ret, ret_uncache);
       assert(ret == ret_uncache);
-      //printf("check success! \n");
     }
   }
 }
@@ -141,7 +130,7 @@ int main(int argc, char *argv[]) {
   init_rand(seed);
   init_mem();
   printf("finishded init mem\n");
-  init_cache(14, 2);
+  init_cache(13, 2);
   replay_trace();
   //printf("finished replay_trace\n");
   display_statistic();
