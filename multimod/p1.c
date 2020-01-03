@@ -6,7 +6,7 @@
 // #include <unistd.h>
 // #include <assert.h>
 
-int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
+void multimod_p1(int64_t a, int64_t b, int64_t m) {
     uint64_t A[70]={};
     uint64_t B[70]={};
     uint64_t C[140]={};
@@ -60,7 +60,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       result = (uint64_t)(ans10x + C[i]) %(uint64_t)m;
       //assert(result < m);
     }
-    return (int64_t)result;
+    //return (int64_t)result;
 }
 
 // int main(){

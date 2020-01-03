@@ -1,6 +1,8 @@
+STUID = 181240035
+STUNAME = 刘春旭
 # **DO NOT MODIFY**
 
-ifeq ($(NAME),)
+ifeq ($(NAME),) #如果name是空，就打印一行error
 $(error Should make in each lab's directory)
 endif
 

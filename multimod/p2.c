@@ -6,7 +6,7 @@
 // #include <sys/time.h>
 // #include <unistd.h>
 
-int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
+void multimod_p2(int64_t a, int64_t b, int64_t m) {
     uint64_t tmp = 0;
     if(a<b) tmp=a,a=b,b=tmp; //swap(a,b)
     uint32_t A[70]={};
@@ -23,7 +23,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
     {
       result  = (uint64_t)((result << 1)%m + (uint64_t)(A[i]*b)) %m;
     }
-    return (int64_t) result;
+    //return (int64_t) result;
 }
 
 // int main(){
