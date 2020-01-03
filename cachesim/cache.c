@@ -4,7 +4,7 @@
 uint32_t choose(uint32_t n);
 
 #define block_offset 0x3F; //get block offset
-uint32_t NR_LINE; 
+uint32_t nr_line; 
 uint32_t tt; //short for total_size_width
 uint32_t as; //short for associativity width
 uint32_t gp; //short for group number width
@@ -115,8 +115,8 @@ void init_cache(int total_size_width, int associativity_width) {
   tt = total_size_width;
   as = associativity_width;
   gp = tt - BLOCK_SIZE - as;
-  NR_LINE = exp2(tt - BLOCK_WIDTH); //cache 行数
-  for (int i = 0; i < NR_LINE; i++)
+  nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
+  for (int i = 0; i < nr_line; i++)
   {
     line[i].dirty = false;
     line[i].valid = false;
