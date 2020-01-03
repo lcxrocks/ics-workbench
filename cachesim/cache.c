@@ -151,6 +151,6 @@ void init_cache(int total_size_width, int associativity_width) {
 void display_statistic(void) {
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
-  printf("hit: %d / %d;\n miss: %d / %d", hit_cnt, miss_cnt);
+  printf("hit: %d / %d;\n miss: %d / %d", hit_cnt, total_cnt, miss_cnt, total_cnt);
   printf("miss_time: %lf / %lf\n", miss_time, total_time);
 }
