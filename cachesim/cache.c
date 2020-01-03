@@ -53,8 +53,8 @@ int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对
   {
     if (line[i].valid == true && line[i].tag == tag)
     {
-      return i; //返回hit后所在的行号
       hit_cnt++;
+      return i; //返回hit后所在的行号
     }
   }
   return -1;
