@@ -19,7 +19,7 @@ void cycle_increase(int n) { cycle_cnt += n; }
 
 // TODO: implement the following functions
 
-void load(uintptr_t addr, uint32_t line_number, uint32_t tag){
+void load(uintptr_t addr, int line_number, uint32_t tag){
   assert(line[line_number].valid ==false);
   uintptr_t block_num = addr >> BLOCK_WIDTH;
   mem_read(block_num, (uint8_t *)(line[line_number].data));
@@ -28,7 +28,7 @@ void load(uintptr_t addr, uint32_t line_number, uint32_t tag){
   line[line_number].tag = tag;
 }
 
-void unload(uint32_t group_number, uint32_t line_number){
+void unload(uint32_t group_number, int line_number){
   assert(line[line_number].valid == true);
   line[line_number].valid = false;
   if (line[line_number].dirty)
@@ -39,7 +39,7 @@ void unload(uint32_t group_number, uint32_t line_number){
   }
 }
 
-uint32_t check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对应的行号，缺失就返回-1
+int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对应的行号，缺失就返回-1
   int gp_start = group_number * NR_GP;
   int gp_end = gp_start + NR_GP -1; 
   for (int i = gp_start; i <= gp_end; i++)
@@ -75,7 +75,7 @@ uint32_t cache_read(uintptr_t addr) {
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
   uint32_t in_block_addr = addr & block_offset; //获得组内地址
   uint32_t data_num = in_block_addr >>2; //因为data是用uint32存的，所以每次取都只取1整个data出来(4 Byte)
-  uint32_t line_number = check_hit(gp_number,tag);
+  int line_number = check_hit(gp_number,tag);
   printf("addr\t\ttag\t\tgp_number\tin_block_addr\tdata_num\t\t\n");
   printf("%8lx\t%8x\t%8x\t%8x\t%8x\t\n",addr,tag, gp_number, in_block_addr, data_num);
   if (line_number >= 0)
@@ -83,7 +83,7 @@ uint32_t cache_read(uintptr_t addr) {
   
   else //否则就要进行替换
   {
-    uint32_t line_miss = replace(addr, gp_number, tag);
+    int line_miss = replace(addr, gp_number, tag);
     return line[line_miss].data[data_num];
   }
   
@@ -91,7 +91,7 @@ uint32_t cache_read(uintptr_t addr) {
   return 0;
 }
 
-void write2line(uint32_t line_number, uint32_t data_num, uint32_t data, uint32_t wmask){
+void write2line(int line_number, uint32_t data_num, uint32_t data, uint32_t wmask){
   line[line_number].dirty = true;
 	line[line_number].data[data_num] &= (~wmask);
 	line[line_number].data[data_num] |= (data & wmask);
@@ -103,7 +103,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
   uint32_t in_block_addr = addr & block_offset; //获得组内地址
   uint32_t data_num = in_block_addr >>2; //因为data是用uint32存的，所以每次取都只取1整个data出来(4 Byte)
-  uint32_t line_number = check_hit(gp_number,tag);
+  int line_number = check_hit(gp_number,tag);
   printf("addr\t\tdata\t\twmask\t\ttag\t\tgp_number\tin_block_addr\tdata_num\t\t\n");
   printf("%8lx\t%8x\t%8x\t%8x\t%8x\t%8x\t%8x\t\n",addr, data, wmask, tag, gp_number, in_block_addr, data_num);
   printf("line number : %d\n",line_number);
@@ -111,7 +111,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
     write2line(line_number, data_num, data, wmask);
   else{
     printf("write miss!\n");
-    uint32_t line_miss = replace(addr, gp_number, tag);
+    int line_miss = replace(addr, gp_number, tag);
     write2line(line_miss, data_num, data, wmask);
   }
 }
