@@ -39,7 +39,7 @@ static void trace_exec(struct trace *t, bool is_check) {
     printf("finished cpu_write\n");
     if (is_check) {
       cpu_uncache_write(t->t.addr, t->t.len, t->data);
-      uint32_t check_write = cpu_uncache_read(t->t.addr, t->t.len, t->data);
+      uint32_t check_write = cpu_uncache_read(t->t.addr, t->t.len);
       uint32_t check_cache_write = cpu_read(t->t.addr, t->t.len);
       assert(check_cache_write == check_write);
       printf("write check success!\n");
