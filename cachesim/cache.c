@@ -90,7 +90,7 @@ uint32_t cache_read(uintptr_t addr) {
   return 0;
 }
 
-void write2line(uint32_t line_number, int data_num, uint32_t data, uint32_t wmask){
+void write2line(uint32_t line_number, uint32_t data_num, uint32_t data, uint32_t wmask){
   line[line_number].dirty = true;
 	line[line_number].data[data_num] &= (~wmask);
 	line[line_number].data[data_num] |= (data & wmask);
@@ -105,6 +105,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   uint32_t line_number = check_hit(gp_number,tag);
   printf("addr\t\tdata\t\twmask\t\ttag\t\tgp_number\tin_block_addr\tdata_num\t\t\n");
   printf("%8lx\t%8x\t%8x\t%8x\t%8x\t%8x\t%8x\t\n",addr, data, wmask, tag, gp_number, in_block_addr, data_num);
+  printf("line number : %d\n",line_number);
   if (line_number >= 0)
     write2line(line_number, data_num, data, wmask);
   else{
