@@ -34,9 +34,9 @@ struct trace {
 
 static void trace_exec(struct trace *t, bool is_check) {
   if (t->t.is_write) {
-    printf("t->t.is_write == true\n");
+    //printf("t->t.is_write == true\n");
     cpu_write(t->t.addr, t->t.len, t->data);
-    printf("finished cpu_write\n");
+    //printf("finished cpu_write\n");
     if (is_check) {
       cpu_uncache_write(t->t.addr, t->t.len, t->data);
       uint32_t check_write = cpu_uncache_read(t->t.addr, t->t.len);
