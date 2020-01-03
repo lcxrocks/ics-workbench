@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
   init_mem();
   printf("finishded init mem\n");
   init_cache(14, 2);
-
+  printf("finished init_cache\n");
   replay_trace();
 
   display_statistic();
