@@ -14,6 +14,8 @@ double write_time, read_time, total_time; //for statistics
 double miss_time = 0;
 int total_cnt = 0;
 int miss_cnt = 0;
+int call_to_read = 0;
+int call_to_write = 0;
 int hit_cnt = 0;
 struct timespec cache_st, cache_ed;
 
@@ -85,6 +87,7 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
 }
 
 uint32_t cache_read(uintptr_t addr) {
+  call_to_read++;
   uint32_t tag = addr >> (tt- as); // 获得tag标记段
   uint32_t gp_num_mask = (1 << (tt-as-BLOCK_WIDTH)) - 1; 
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
@@ -111,6 +114,7 @@ void write2line(int line_number, uint32_t data_num, uint32_t data, uint32_t wmas
 }
 
 void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
+  call_to_write++;
   uint32_t tag = addr >> (tt- as); // 获得tag标记段
   uint32_t gp_num_mask = (1 << (tt-as-BLOCK_WIDTH)) - 1; 
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
@@ -133,7 +137,8 @@ void init_cache(int total_size_width, int associativity_width) {
   as = associativity_width;
   gp = tt - BLOCK_WIDTH - as;
   nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
-
+  call_to_read = 0; 
+  call_to_write = 0;
   cycle_cnt = 0;
   miss_time = 0;
   total_cnt = 0;
@@ -151,6 +156,7 @@ void init_cache(int total_size_width, int associativity_width) {
 void display_statistic(void) {
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
+  printf("total call: %d\t call_to_read: %d\t call to write: %d\n", call_to_write+call_to_write,call_to_read,call_to_write);
   printf("hit: %d / %d;\nmiss: %d / %d\n", hit_cnt, total_cnt, miss_cnt, total_cnt);
   printf("miss_time: %lf / %lf\n", miss_time, total_time);
 }
