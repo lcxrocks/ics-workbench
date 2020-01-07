@@ -24,7 +24,7 @@ struct _LINE
     bool dirty;
     uint32_t tag;
     uint32_t data[16];
-}line[1024];
+}line[2048];
 
 void cycle_increase(int n);
 void cycle_miss(int n);
