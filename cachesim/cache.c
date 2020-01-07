@@ -151,6 +151,7 @@ void display_statistic(void) {
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
   hit_rate = miss_cnt/total_cnt;
+  print("%f\n",hit_rate);
   time_taken = miss_cycle/cycle_cnt;
   printf("hit: %d / %d;\nmiss: %d / %d, hit rate: %f\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
   printf("miss_cycle/ cycle_cnt:%ld/%ld, time rate: %f\n",miss_cycle,cycle_cnt,time_taken);
