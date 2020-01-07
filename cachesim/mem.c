@@ -16,11 +16,13 @@ void init_mem(void) {
 void mem_read(uintptr_t block_num, uint8_t *buf) {
   memcpy(buf, mem + (block_num << BLOCK_WIDTH), BLOCK_SIZE);
   cycle_increase(25);
+  cycle_miss(25);
 }
 
 void mem_write(uintptr_t block_num, const uint8_t *buf) {
   memcpy(mem + (block_num << BLOCK_WIDTH), buf, BLOCK_SIZE);
   cycle_increase(6);
+  cycle_miss(6);
 }
 
 uint32_t mem_uncache_read(uintptr_t addr) {

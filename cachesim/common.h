@@ -27,5 +27,6 @@ struct _LINE
 }line[1024];
 
 void cycle_increase(int n);
+void cycle_miss(int n);
 
 #endif

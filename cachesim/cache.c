@@ -20,8 +20,9 @@ void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
 
 static uint64_t cycle_cnt = 0;
-
+static uint64_t miss_cycle = 0;
 void cycle_increase(int n) { cycle_cnt += n; }
+void cycle_miss(int n){ miss_cycle += n; }
 
 // TODO: implement the following functions
 
@@ -145,8 +146,10 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
+  float hit_rate = 0;
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
   printf("hit: %d / %d;\nmiss: %d / %d\n", hit_cnt, total_cnt, miss_cnt, total_cnt);
-  printf("cycle_cnt:%ld\n",cycle_cnt);
+  printf("hit rate: %f\n", miss_cnt/total_cnt);
+  printf("miss_cycle/ cycle_cnt:%ld/%ld, time rate: %f\n",miss_cycle,cycle_cnt,miss_cycle/cycle_cnt);
 }
