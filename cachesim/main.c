@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv);
   init_rand(seed);
   init_mem();
-  for (int i = 10; i < 17; i=i+2)
+  for (int i = 12; i < 17; i=i+2)
   {
     printf("tt = %d\n",i);
     init_cache(i, 5);
