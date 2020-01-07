@@ -148,5 +148,5 @@ void display_statistic(void) {
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
   printf("hit: %d / %d;\nmiss: %d / %d\n", hit_cnt, total_cnt, miss_cnt, total_cnt);
-  printf("cycle_cnt:%d\n",cycle_cnt);
+  printf("cycle_cnt:%ld\n",cycle_cnt);
 }
