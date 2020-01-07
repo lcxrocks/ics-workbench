@@ -142,7 +142,6 @@ void init_cache(int total_size_width, int associativity_width) {
     line[i].dirty = false;
     line[i].valid = false;
   }
-  //\033[47;31mThis is a color test.\033[0m
   printf("\033[47;31mBLOCK_WIDTH\ttotal_width_size\t associativity_width\t group_number_width\t nr_line\033[0m\n");
   printf("%8d \t %8d \t %16d \t %16d \t %12d \n",BLOCK_WIDTH,tt, as, gp, nr_line);
   //printf("finished init_cache, tt: %d, as:%d, gp:%d, nr_line:%d\n",tt,as,gp,nr_line);
