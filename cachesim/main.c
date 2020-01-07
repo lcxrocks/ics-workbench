@@ -133,9 +133,15 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv);
   init_rand(seed);
   init_mem();
-  init_cache(8, 1);
-  replay_trace();
-  display_statistic();
+  for (int i = 8; i < 17; i=i+2)
+  {
+    printf("tt = %d\n",i);
+    init_cache(i, 1);
+    replay_trace();
+    display_statistic();
+  }
+  
+  
 
   return 0;
 }
