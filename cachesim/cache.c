@@ -1,6 +1,7 @@
 #include "common.h"
 #include <inttypes.h>
 #include <time.h>
+#include <sys/time.h>
 static inline uint32_t choose(uint32_t n) { return rand() % n; }
 
 #define block_offset 0x3F; //get block offset
@@ -17,7 +18,7 @@ int miss_cnt = 0;
 int call_to_read = 0;
 int call_to_write = 0;
 int hit_cnt = 0;
-struct timespec cache_st, cache_ed;
+struct timeval cache_st, cache_ed;
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
@@ -64,7 +65,7 @@ int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对
 
 uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   miss_cnt++;
-  clock_gettime(CLOCK_REALTIME, &cache_st);
+  gettimeofday(&cache_st, NULL);
   int gp_start = group_number * NR_GP;
   int gp_end = gp_start + NR_GP -1;
   //printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
@@ -81,8 +82,8 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   assert(line_replace <= gp_end);
   unload(group_number,line_replace);
   load(addr,line_replace, tag);
-  clock_gettime(CLOCK_REALTIME, &cache_ed);
-  miss_time += (cache_ed.tv_nsec - cache_st.tv_nsec);
+  gettimeofday(&cache_ed, NULL);
+  miss_time += (cache_ed.tv_usec - cache_st.tv_usec);
   return line_replace;
 }
 
