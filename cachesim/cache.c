@@ -1,7 +1,5 @@
 #include "common.h"
 #include <inttypes.h>
-#include <time.h>
-#include <sys/time.h>
 static inline uint32_t choose(uint32_t n) { return rand() % n; }
 
 #define block_offset 0x3F; //get block offset
@@ -15,8 +13,6 @@ double write_time, read_time, total_time; //for statistics
 double miss_time = 0;
 int total_cnt = 0;
 int miss_cnt = 0;
-int call_to_read = 0;
-int call_to_write = 0;
 int hit_cnt = 0;
 struct timeval cache_st, cache_ed;
 
@@ -65,7 +61,7 @@ int check_hit(uint32_t group_number, uint32_t tag){ //在cache中寻找主存对
 
 uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   miss_cnt++;
-  gettimeofday(&cache_st, NULL);
+  //gettimeofday(&cache_st, NULL);
   int gp_start = group_number * NR_GP;
   int gp_end = gp_start + NR_GP -1;
   //printf("gp_start: %d, gp_end: %d\n",gp_start,gp_end);
@@ -82,13 +78,12 @@ uint32_t replace(uintptr_t addr, uint32_t group_number, uint32_t tag){
   assert(line_replace <= gp_end);
   unload(group_number,line_replace);
   load(addr,line_replace, tag);
-  gettimeofday(&cache_ed, NULL);
-  miss_time += (cache_ed.tv_usec - cache_st.tv_usec);
+  //gettimeofday(&cache_ed, NULL);
+  //miss_time += (cache_ed.tv_usec - cache_st.tv_usec);
   return line_replace;
 }
 
 uint32_t cache_read(uintptr_t addr) {
-  call_to_read++;
   uint32_t tag = addr >> (tt- as); // 获得tag标记段
   uint32_t gp_num_mask = (1 << (tt-as-BLOCK_WIDTH)) - 1; 
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
@@ -115,7 +110,6 @@ void write2line(int line_number, uint32_t data_num, uint32_t data, uint32_t wmas
 }
 
 void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
-  call_to_write++;
   uint32_t tag = addr >> (tt- as); // 获得tag标记段
   uint32_t gp_num_mask = (1 << (tt-as-BLOCK_WIDTH)) - 1; 
   uint32_t gp_number = (addr >> BLOCK_WIDTH) & gp_num_mask; //获得组号
@@ -138,11 +132,7 @@ void init_cache(int total_size_width, int associativity_width) {
   as = associativity_width;
   gp = tt - BLOCK_WIDTH - as;
   nr_line = exp2(tt - BLOCK_WIDTH); //cache 行数
-  call_to_read = 0; 
-  call_to_write = 0;
   cycle_cnt = 0;
-  miss_time = 0;
-  total_cnt = 0;
   miss_cnt = 0;
   hit_cnt = 0;
 
@@ -157,7 +147,6 @@ void init_cache(int total_size_width, int associativity_width) {
 void display_statistic(void) {
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
-  printf("total call: %d\t call_to_read: %d\t call to write: %d\n", call_to_write+call_to_write,call_to_read,call_to_write);
   printf("hit: %d / %d;\nmiss: %d / %d\n", hit_cnt, total_cnt, miss_cnt, total_cnt);
-  printf("miss_time: %lf / %lf\n", miss_time, total_time);
+  printf("cycle_cnt:%d\n",cycle_cnt);
 }
