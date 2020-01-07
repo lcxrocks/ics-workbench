@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
   for (int i = 10; i < 17; i=i+2)
   {
     printf("tt = %d\n",i);
-    init_cache(i, 4);
+    init_cache(i, 5);
     replay_trace();
     display_statistic();
   }
