@@ -136,7 +136,7 @@ void init_cache(int total_size_width, int associativity_width) {
   cycle_cnt = 0;
   miss_cnt = 0;
   hit_cnt = 0;
-
+  cycle_miss = 0;
   for (int i = 0; i < nr_line; i++)
   {
     line[i].dirty = false;
