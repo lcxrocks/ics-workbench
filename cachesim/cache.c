@@ -146,13 +146,12 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
-  float hit_rate = 0;
-  float time_taken = 0;
+  double hit_rate = 0;
+  double time_taken = 0;
   total_cnt = hit_cnt + miss_cnt;
   total_time = read_time + write_time;
   hit_rate = hit_cnt*100/total_cnt;
-  printf("%f, %d\n",hit_rate, hit_cnt/total_cnt);
   time_taken = miss_cycle*100/cycle_cnt;
-  printf("hit: %d / %d, miss: %d / %d, hit rate: %f\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
-  printf("miss_cycle/cycle_cnt:%ld / %ld, time rate: %f\n",miss_cycle,cycle_cnt,time_taken);
+  printf("hit: %d / %d, miss: %d / %d, hit rate: %lf\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
+  printf("miss_cycle/cycle_cnt:%ld / %ld, time rate: %lf\n",miss_cycle,cycle_cnt,time_taken);
 }
