@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
     //while(fgets(tmp,4096,p)) printf("skip\n");
     fprintf(p,"tt = %d\n",i);
     fclose(p);
-    init_cache(i, 2);
+    init_cache(i, 1);
     replay_trace();
     display_statistic(); 
   }
