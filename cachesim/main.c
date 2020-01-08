@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv);
   init_rand(seed);
   init_mem();
-  for (int i = 8; i < 17; i++)
+  for (int i = 8; i < 17; i=i+2)
   {
     //char tmp[4096] ;
     FILE *p = fopen("stat.txt","a");
