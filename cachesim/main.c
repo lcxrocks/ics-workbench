@@ -135,10 +135,12 @@ int main(int argc, char *argv[]) {
   init_mem();
   for (int i = 10; i < 17; i++)
   {
-    printf("tt = %d\n",i);
+    FILE *p = fopen("stat.txt","w")
+    fprintf(p,"tt = %d\n",i);
+    fclose(p);
     init_cache(i, 4);
     replay_trace();
-    display_statistic();
+    display_statistic(); 
   }
   
   
