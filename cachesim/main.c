@@ -133,14 +133,14 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv);
   init_rand(seed);
   init_mem();
-  for (int i = 10; i < 17; i++)
+  for (int i = 8; i < 17; i++)
   {
     //char tmp[4096] ;
     FILE *p = fopen("stat.txt","a");
     //while(fgets(tmp,4096,p)) printf("skip\n");
     fprintf(p,"tt = %d\n",i);
     fclose(p);
-    init_cache(i, 2);
+    init_cache(i, 1);
     replay_trace();
     display_statistic(); 
   }
