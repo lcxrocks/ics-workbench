@@ -135,7 +135,9 @@ int main(int argc, char *argv[]) {
   init_mem();
   for (int i = 10; i < 17; i++)
   {
-    FILE *p = fopen("stat.txt","wb");
+    char[4096] tmp;
+    FILE *p = fopen("stat.txt","rw");
+    while(fgets(tmp,4096,p)) continue;
     fprintf(p,"tt = %d\n",i);
     fclose(p);
     init_cache(i, 2);
