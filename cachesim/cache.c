@@ -155,7 +155,7 @@ void display_statistic(void) {
   hit_rate = (float)hit_cnt*100/(float)total_cnt;
   time_taken = (float)miss_cycle*100/(float)cycle_cnt;
   //char tmp[4096] ;
-  FILE *fp = fopen("stat.txt","ra");
+  FILE *fp = fopen("stat.txt","a");
   //while(fgets(tmp,4096,fp)) continue;
   fprintf(fp,"hit: %d / %d, miss: %d / %d, hit rate: %lf\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
   fprintf(fp,"miss_cycle/cycle_cnt:%ld / %ld, time rate: %lf\n",miss_cycle,cycle_cnt,time_taken);
