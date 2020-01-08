@@ -157,7 +157,7 @@ void display_statistic(void) {
   FILE *fp = fopen("stat.txt", w);
   //fprintf("")
   assert(fp);
-  fprintf("hit: %d / %d, miss: %d / %d, hit rate: %lf\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
-  printf("miss_cycle/cycle_cnt:%ld / %ld, time rate: %lf\n",miss_cycle,cycle_cnt,time_taken);
+  fprintf(fp,"hit: %d / %d, miss: %d / %d, hit rate: %lf\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
+  //printf("miss_cycle/cycle_cnt:%ld / %ld, time rate: %lf\n",miss_cycle,cycle_cnt,time_taken);
   fclose(fp);
 }
