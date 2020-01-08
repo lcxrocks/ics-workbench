@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
     FILE *p = fopen("stat.txt","w");
     fprintf(p,"tt = %d\n",i);
     fclose(p);
-    init_cache(i, 4);
+    init_cache(i, 2);
     replay_trace();
     display_statistic(); 
   }
