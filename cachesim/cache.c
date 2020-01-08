@@ -157,8 +157,6 @@ void display_statistic(void) {
   char tmp[4096] ;
   FILE *fp = fopen("stat.txt","rw");
   while(fgets(tmp,4096,fp)) continue;
-  //fprintf("")
-  assert(fp);
   fprintf(fp,"hit: %d / %d, miss: %d / %d, hit rate: %lf\n", hit_cnt, total_cnt, miss_cnt, total_cnt, hit_rate);
   fprintf(fp,"miss_cycle/cycle_cnt:%ld / %ld, time rate: %lf\n",miss_cycle,cycle_cnt,time_taken);
   fclose(fp);
